@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -287,6 +288,29 @@
                         </div>
                     </div>
                     
+                    <!-- Report Filters -->
+                    <div class="mb-6 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
+                        <select id="report-filter-class" class="form-input px-4 py-2 rounded-lg border border-gray-300 focus:outline-none">
+                            <option value="">ทุกระดับชั้น</option>
+                            <option value="อนุบาล2">อนุบาล 2</option>
+                            <option value="อนุบาล3">อนุบาล 3</option>
+                            <option value="ประถมศึกษาปีที่1">ประถมศึกษาปีที่ 1</option>
+                            <option value="ประถมศึกษาปีที่2">ประถมศึกษาปีที่ 2</option>
+                            <option value="ประถมศึกษาปีที่3">ประถมศึกษาปีที่ 3</option>
+                            <option value="ประถมศึกษาปีที่4">ประถมศึกษาปีที่ 4</option>
+                            <option value="ประถมศึกษาปีที่5">ประถมศึกษาปีที่ 5</option>
+                            <option value="ประถมศึกษาปีที่6">ประถมศึกษาปีที่ 6</option>
+                        </select>
+                        <select id="report-filter-room" class="form-input px-4 py-2 rounded-lg border border-gray-300 focus:outline-none">
+                            <option value="">ทุกห้อง</option>
+                            <option value="1">ห้อง 1</option>
+                            <option value="2">ห้อง 2</option>
+                            <option value="3">ห้อง 3</option>
+                            <option value="4">ห้อง 4</option>
+                            <option value="5">ห้อง 5</option>
+                        </select>
+                    </div>
+                    
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                         <div class="bg-white rounded-lg shadow p-6 border-l-4 border-green-500">
                             <div class="flex items-center">
@@ -561,6 +585,8 @@
         const reportYear = document.getElementById('report-year');
         const attendanceFilterClass = document.getElementById('attendance-filter-class');
         const attendanceFilterRoom = document.getElementById('attendance-filter-room');
+        const reportFilterClass = document.getElementById('report-filter-class');
+        const reportFilterRoom = document.getElementById('report-filter-room');
 
         // Tab Elements
         const tabStudents = document.getElementById('tab-students');
@@ -652,6 +678,8 @@
             // Report filters
             reportMonth.addEventListener('change', updateReports);
             reportYear.addEventListener('change', updateReports);
+            reportFilterClass.addEventListener('change', updateReports);
+            reportFilterRoom.addEventListener('change', updateReports);
         }
 
         // Switch between tabs
@@ -879,10 +907,22 @@
             }
         }
 
-        // Update reports based on selected month and year
+        // Update reports based on selected month, year, and filters
         function updateReports() {
             const month = parseInt(reportMonth.value);
             const year = parseInt(reportYear.value);
+            const classFilter = reportFilterClass.value;
+            const roomFilter = reportFilterRoom.value;
+            
+            // Get filtered students based on class and room
+            const filteredStudents = students.filter(student => {
+                const matchesClass = classFilter ? student.class === classFilter : true;
+                const matchesRoom = roomFilter ? student.room === roomFilter : true;
+                return matchesClass && matchesRoom;
+            });
+            
+            // Get filtered student IDs for quick lookup
+            const filteredStudentIds = new Set(filteredStudents.map(student => student.id));
             
             // Calculate attendance statistics
             let presentCount = 0;
@@ -904,12 +944,15 @@
                 
                 // Check if date is in selected month and year
                 if (date.getMonth() + 1 === month && date.getFullYear() === year) {
-                    hasData = true;
                     const dayAttendance = attendanceData[dateString];
                     const day = date.getDate() - 1; // Array is 0-indexed
                     
-                    // Count attendance statuses
+                    // Count attendance statuses for filtered students
                     for (const studentId in dayAttendance) {
+                        // Skip if student is not in filtered list
+                        if (!filteredStudentIds.has(studentId)) continue;
+                        
+                        hasData = true;
                         const status = dayAttendance[studentId];
                         
                         if (status === 'present') {
@@ -1148,5 +1191,5 @@
         // Initialize the application
         document.addEventListener('DOMContentLoaded', init);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b0d09bb27cfd1a',t:'MTc0NjQ1NDE1OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b0e629e2b6fcfe',t:'MTc0NjQ1NTA0MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
