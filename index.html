@@ -211,6 +211,29 @@
                         </div>
                     </div>
                     
+                    <!-- Attendance Filters -->
+                    <div class="mb-6 flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
+                        <select id="attendance-filter-class" class="form-input px-4 py-2 rounded-lg border border-gray-300 focus:outline-none">
+                            <option value="">ทุกระดับชั้น</option>
+                            <option value="อนุบาล2">อนุบาล 2</option>
+                            <option value="อนุบาล3">อนุบาล 3</option>
+                            <option value="ประถมศึกษาปีที่1">ประถมศึกษาปีที่ 1</option>
+                            <option value="ประถมศึกษาปีที่2">ประถมศึกษาปีที่ 2</option>
+                            <option value="ประถมศึกษาปีที่3">ประถมศึกษาปีที่ 3</option>
+                            <option value="ประถมศึกษาปีที่4">ประถมศึกษาปีที่ 4</option>
+                            <option value="ประถมศึกษาปีที่5">ประถมศึกษาปีที่ 5</option>
+                            <option value="ประถมศึกษาปีที่6">ประถมศึกษาปีที่ 6</option>
+                        </select>
+                        <select id="attendance-filter-room" class="form-input px-4 py-2 rounded-lg border border-gray-300 focus:outline-none">
+                            <option value="">ทุกห้อง</option>
+                            <option value="1">ห้อง 1</option>
+                            <option value="2">ห้อง 2</option>
+                            <option value="3">ห้อง 3</option>
+                            <option value="4">ห้อง 4</option>
+                            <option value="5">ห้อง 5</option>
+                        </select>
+                    </div>
+                    
                     <div class="overflow-x-auto">
                         <table class="min-w-full bg-white">
                             <thead>
@@ -534,6 +557,8 @@
         const attendanceDate = document.getElementById('attendance-date');
         const reportMonth = document.getElementById('report-month');
         const reportYear = document.getElementById('report-year');
+        const attendanceFilterClass = document.getElementById('attendance-filter-class');
+        const attendanceFilterRoom = document.getElementById('attendance-filter-room');
 
         // Tab Elements
         const tabStudents = document.getElementById('tab-students');
@@ -600,6 +625,10 @@
             searchInput.addEventListener('input', displayStudents);
             filterClass.addEventListener('change', displayStudents);
             filterRoom.addEventListener('change', displayStudents);
+            
+            // Attendance filters
+            attendanceFilterClass.addEventListener('change', displayAttendance);
+            attendanceFilterRoom.addEventListener('change', displayAttendance);
             
             // Save attendance button
             document.getElementById('btn-save-attendance').addEventListener('click', saveAttendance);
@@ -719,8 +748,12 @@
             }
         }
 
-        // Display attendance for today
+        // Display attendance for today with filters
         function displayAttendance() {
+            // Get filter values
+            const classFilter = attendanceFilterClass.value;
+            const roomFilter = attendanceFilterRoom.value;
+            
             // Clear attendance list
             attendanceList.innerHTML = '';
             
@@ -731,14 +764,21 @@
             // Get today's attendance data
             const todayAttendance = attendanceData[dateString] || {};
             
+            // Filter students based on class and room
+            const filteredStudents = students.filter(student => {
+                const matchesClass = classFilter ? student.class === classFilter : true;
+                const matchesRoom = roomFilter ? student.room === roomFilter : true;
+                return matchesClass && matchesRoom;
+            });
+            
             // Show/hide no students message
-            if (students.length === 0) {
+            if (filteredStudents.length === 0) {
                 noAttendanceStudents.classList.remove('hidden');
             } else {
                 noAttendanceStudents.classList.add('hidden');
                 
                 // Add students to attendance list
-                students.forEach(student => {
+                filteredStudents.forEach(student => {
                     const status = todayAttendance[student.id] || 'absent';
                     
                     const row = document.createElement('tr');
@@ -778,13 +818,15 @@
             const today = new Date();
             const dateString = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
             
-            // Create attendance data object for today
-            const todayAttendance = {};
+            // Create attendance data object for today if it doesn't exist
+            if (!attendanceData[dateString]) {
+                attendanceData[dateString] = {};
+            }
             
             // Get attendance status for each student
             students.forEach(student => {
                 const radioButtons = document.getElementsByName(`attendance-${student.id}`);
-                let status = 'absent';
+                let status = null;
                 
                 radioButtons.forEach(radio => {
                     if (radio.checked) {
@@ -792,11 +834,13 @@
                     }
                 });
                 
-                todayAttendance[student.id] = status;
+                // Only update if the student was displayed and status was selected
+                if (status !== null) {
+                    attendanceData[dateString][student.id] = status;
+                }
             });
             
             // Save attendance data
-            attendanceData[dateString] = todayAttendance;
             localStorage.setItem('attendanceData', JSON.stringify(attendanceData));
             
             // Show success message
@@ -1077,5 +1121,5 @@
         // Initialize the application
         document.addEventListener('DOMContentLoaded', init);
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b0a5bda1373fdb',t:'MTc0NjQ1MjQwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b0bae3307efcf0',t:'MTc0NjQ1MzI2OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
