@@ -90,12 +90,21 @@
             <!-- Tabs -->
             <div class="flex mb-6 border rounded-lg overflow-hidden shadow-sm">
                 <button class="tab tab-active py-3 px-6 font-medium flex-1 text-center" data-tab="students">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
                     จัดการข้อมูลนักเรียน
                 </button>
                 <button class="tab py-3 px-6 font-medium flex-1 text-center" data-tab="attendance">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                    </svg>
                     เช็คชื่อประจำวัน
                 </button>
                 <button class="tab py-3 px-6 font-medium flex-1 text-center" data-tab="reports">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
                     รายงาน
                 </button>
             </div>
@@ -109,8 +118,14 @@
                         <div class="flex space-x-2">
                             <div class="relative">
                                 <input type="text" id="search-student" placeholder="ค้นหานักเรียน..." class="form-input px-4 py-2 rounded-lg border focus:outline-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute right-3 top-2.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
                             </div>
                             <button id="add-student-btn" class="btn-primary px-4 py-2 rounded-lg flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                </svg>
                                 เพิ่มนักเรียน
                             </button>
                         </div>
@@ -120,11 +135,9 @@
                         <table class="min-w-full bg-white">
                             <thead>
                                 <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
-                                    <th class="py-3 px-6 text-left">คำนำหน้า</th>
                                     <th class="py-3 px-6 text-left">รหัสนักเรียน</th>
                                     <th class="py-3 px-6 text-left">ชื่อ-นามสกุล</th>
-                                    <th class="py-3 px-6 text-left">ชั้นเรียน</th>
-                                    <th class="py-3 px-6 text-left">ห้องเรียน</th>
+                                    <th class="py-3 px-6 text-left">เลขประจำตัวประชาชน</th>
                                     <th class="py-3 px-6 text-center">กรุ๊ปเลือด</th>
                                     <th class="py-3 px-6 text-left">เบอร์โทร</th>
                                     <th class="py-3 px-6 text-left">ที่อยู่</th>
@@ -138,6 +151,9 @@
                     </div>
 
                     <div id="empty-state" class="text-center py-10 hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
                         <h3 class="mt-2 text-lg font-medium text-gray-500">ไม่พบข้อมูลนักเรียน</h3>
                         <p class="mt-1 text-gray-400">กรุณาเพิ่มข้อมูลนักเรียนใหม่</p>
                     </div>
@@ -148,6 +164,21 @@
                     <div class="flex justify-between items-center mb-6">
                         <div>
                             <h2 class="text-xl font-semibold text-gray-800">เช็คชื่อประจำวัน</h2>
+                            <p class="text-gray-500" id="attendance-date"></p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button id="mark-all-present" class="btn-secondary px-4 py-2 rounded-lg flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                เข้าเรียนทั้งหมด
+                            </button>
+                            <button id="save-attendance" class="btn-primary px-4 py-2 rounded-lg flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                                </svg>
+                                บันทึกการเช็คชื่อ
+                            </button>
                         </div>
                     </div>
 
@@ -166,12 +197,21 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <div id="attendance-empty-state" class="text-center py-10 hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                        </svg>
+                        <h3 class="mt-2 text-lg font-medium text-gray-500">ไม่พบข้อมูลนักเรียนสำหรับเช็คชื่อ</h3>
+                        <p class="mt-1 text-gray-400">กรุณาเพิ่มข้อมูลนักเรียนก่อน</p>
+                    </div>
                 </div>
 
                 <!-- Reports Tab -->
                 <div id="reports-tab" class="tab-content hidden">
                     <div class="mb-6">
                         <h2 class="text-xl font-semibold text-gray-800 mb-4">รายงานการเข้าเรียน</h2>
+                        
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                             <div class="bg-green-50 border border-green-200 rounded-lg p-4">
                                 <div class="flex items-center">
@@ -186,6 +226,7 @@
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="bg-red-50 border border-red-200 rounded-lg p-4">
                                 <div class="flex items-center">
                                     <div class="bg-red-100 rounded-full p-3 mr-4">
@@ -199,6 +240,7 @@
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                                 <div class="flex items-center">
                                     <div class="bg-yellow-100 rounded-full p-3 mr-4">
@@ -211,6 +253,63 @@
                                         <p class="text-2xl font-bold text-gray-800" id="late-count">0</p>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-lg shadow-sm border p-4 mb-6">
+                            <h3 class="text-lg font-medium text-gray-700 mb-4">ประวัติการเข้าเรียน</h3>
+                            <div class="flex space-x-4 mb-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">จากวันที่</label>
+                                    <input type="date" class="form-input px-4 py-2 rounded-lg border focus:outline-none" id="date-from">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">ถึงวันที่</label>
+                                    <input type="date" class="form-input px-4 py-2 rounded-lg border focus:outline-none" id="date-to">
+                                </div>
+                                <div class="self-end">
+                                    <button id="filter-report" class="btn-primary px-4 py-2 rounded-lg flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                                        </svg>
+                                        กรอง
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full bg-white">
+                                    <thead>
+                                        <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
+                                            <th class="py-3 px-6 text-left">วันที่</th>
+                                            <th class="py-3 px-6 text-left">มาเรียน</th>
+                                            <th class="py-3 px-6 text-left">ขาดเรียน</th>
+                                            <th class="py-3 px-6 text-left">มาสาย</th>
+                                            <th class="py-3 px-6 text-center">รายละเอียด</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="report-table-body" class="text-gray-600 text-sm">
+                                        <!-- Report data will be populated here -->
+                                        <tr class="border-b border-gray-200 hover:bg-gray-50">
+                                            <td class="py-3 px-6">01/06/2023</td>
+                                            <td class="py-3 px-6">28</td>
+                                            <td class="py-3 px-6">2</td>
+                                            <td class="py-3 px-6">1</td>
+                                            <td class="py-3 px-6 text-center">
+                                                <button class="text-blue-600 hover:text-blue-900">ดูรายละเอียด</button>
+                                            </td>
+                                        </tr>
+                                        <tr class="border-b border-gray-200 hover:bg-gray-50">
+                                            <td class="py-3 px-6">02/06/2023</td>
+                                            <td class="py-3 px-6">29</td>
+                                            <td class="py-3 px-6">1</td>
+                                            <td class="py-3 px-6">1</td>
+                                            <td class="py-3 px-6 text-center">
+                                                <button class="text-blue-600 hover:text-blue-900">ดูรายละเอียด</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -242,43 +341,9 @@
                     <input type="hidden" id="student-id">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">คำนำหน้า</label>
-                            <select id="student-prefix" class="form-input w-full px-4 py-2 rounded-lg border focus:outline-none" required>
-                                <option value="เด็กชาย">เด็กชาย</option>
-                                <option value="เด็กหญิง">เด็กหญิง</option>
-                            </select>
-                        </div>
-                        <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">รหัสนักเรียน</label>
                             <input type="text" id="student-code" class="form-input w-full px-4 py-2 rounded-lg border focus:outline-none" required>
                         </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">ชั้นเรียน</label>
-                            <select id="student-grade" class="form-input w-full px-4 py-2 rounded-lg border focus:outline-none" required>
-                                <option value="อนุบาล2">อนุบาล2</option>
-                                <option value="อนุบาล3">อนุบาล3</option>
-                                <option value="ประถมศึกษาปีที่ 1">ประถมศึกษาปีที่ 1</option>
-                                <option value="ประถมศึกษาปีที่ 2">ประถมศึกษาปีที่ 2</option>
-                                <option value="ประถมศึกษาปีที่ 3">ประถมศึกษาปีที่ 3</option>
-                                <option value="ประถมศึกษาปีที่ 4">ประถมศึกษาปีที่ 4</option>
-                                <option value="ประถมศึกษาปีที่ 5">ประถมศึกษาปีที่ 5</option>
-                                <option value="ประถมศึกษาปีที่ 6">ประถมศึกษาปีที่ 6</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">ห้องเรียน</label>
-                            <select id="student-room" class="form-input w-full px-4 py-2 rounded-lg border focus:outline-none" required>
-                                <option value="ห้อง 1">ห้อง 1</option>
-                                <option value="ห้อง 2">ห้อง 2</option>
-                                <option value="ห้อง 3">ห้อง 3</option>
-                                <option value="ห้อง 4">ห้อง 4</option>
-                                <option value="ห้อง 5">ห้อง 5</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">ชื่อ-นามสกุล</label>
                             <input type="text" id="student-name" class="form-input w-full px-4 py-2 rounded-lg border focus:outline-none" required>
@@ -292,6 +357,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">กรุ๊ปเลือด</label>
                             <select id="student-blood-type" class="form-input w-full px-4 py-2 rounded-lg border focus:outline-none" required>
+                                <option value="">เลือกกรุ๊ปเลือด</option>
                                 <option value="A">A</option>
                                 <option value="B">B</option>
                                 <option value="AB">AB</option>
@@ -319,9 +385,9 @@
     <script>
         // Sample data
         let students = [
-            { id: 1, prefix: "เด็กชาย", grade: "อนุบาล2", room: "ห้อง 1", code: "ST001", name: "สมชาย ใจดี", idNumber: "1234567890123", bloodType: "A", phone: "0812345678", address: "123 ถ.สุขุมวิท กรุงเทพฯ" },
-            { id: 2, prefix: "เด็กหญิง", grade: "อนุบาล3", room: "ห้อง 2", code: "ST002", name: "สมหญิง รักเรียน", idNumber: "2345678901234", bloodType: "B", phone: "0823456789", address: "456 ถ.พหลโยธิน กรุงเทพฯ" },
-            { id: 3, prefix: "เด็กชาย", grade: "ประถมศึกษาปีที่ 1", room: "ห้อง 3", code: "ST003", name: "มานะ ตั้งใจ", idNumber: "3456789012345", bloodType: "O", phone: "0834567890", address: "789 ถ.รัชดาภิเษก กรุงเทพฯ" }
+            { id: 1, code: "ST001", name: "สมชาย ใจดี", idNumber: "1234567890123", bloodType: "A", phone: "0812345678", address: "123 ถ.สุขุมวิท กรุงเทพฯ" },
+            { id: 2, code: "ST002", name: "สมหญิง รักเรียน", idNumber: "2345678901234", bloodType: "B", phone: "0823456789", address: "456 ถ.พหลโยธิน กรุงเทพฯ" },
+            { id: 3, code: "ST003", name: "มานะ ตั้งใจ", idNumber: "3456789012345", bloodType: "O", phone: "0834567890", address: "789 ถ.รัชดาภิเษก กรุงเทพฯ" }
         ];
 
         let attendance = {};
@@ -405,21 +471,23 @@
             emptyState.classList.add('hidden');
             studentTableBody.innerHTML = studentsToRender.map(student => `
                 <tr class="border-b border-gray-200 hover:bg-gray-50">
-                    <td class="py-3 px-6">${student.prefix}</td>
                     <td class="py-3 px-6">${student.code}</td>
                     <td class="py-3 px-6">${student.name}</td>
-                    <td class="py-3 px-6">${student.grade}</td>
-                    <td class="py-3 px-6">${student.room}</td>
+                    <td class="py-3 px-6">${student.idNumber}</td>
                     <td class="py-3 px-6 text-center">${student.bloodType}</td>
                     <td class="py-3 px-6">${student.phone}</td>
                     <td class="py-3 px-6">${student.address}</td>
                     <td class="py-3 px-6 text-center">
                         <div class="flex justify-center items-center space-x-2">
                             <button class="edit-student text-blue-600 hover:text-blue-900" data-id="${student.id}">
-                                แก้ไข
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                </svg>
                             </button>
                             <button class="delete-student text-red-600 hover:text-red-900" data-id="${student.id}">
-                                ลบ
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
                             </button>
                         </div>
                     </td>
@@ -537,10 +605,7 @@
             
             modalTitle.textContent = 'แก้ไขข้อมูลนักเรียน';
             document.getElementById('student-id').value = student.id;
-            document.getElementById('student-prefix').value = student.prefix;
             document.getElementById('student-code').value = student.code;
-            document.getElementById('student-grade').value = student.grade;
-            document.getElementById('student-room').value = student.room;
             document.getElementById('student-name').value = student.name;
             document.getElementById('student-id-number').value = student.idNumber;
             document.getElementById('student-blood-type').value = student.bloodType;
@@ -581,9 +646,6 @@
             
             const id = document.getElementById('student-id').value;
             const newStudent = {
-                prefix: document.getElementById('student-prefix').value,
-                grade: document.getElementById('student-grade').value,
-                room: document.getElementById('student-room').value,
                 code: document.getElementById('student-code').value,
                 name: document.getElementById('student-name').value,
                 idNumber: document.getElementById('student-id-number').value,
@@ -665,5 +727,5 @@
         // Initialize the app
         renderStudents();
     </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93af925dd076ce31',t:'MTc0NjQ0MTEyMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
