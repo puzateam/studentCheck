@@ -332,7 +332,13 @@
             color: #dc2626;
             font-size: 0.875rem;
             margin-top: 0.5rem;
-            display: none;
+            display: block;
+        }
+        .success-message {
+            color: #16a34a;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: block;
         }
         @media (max-width: 768px) {
             .container {
@@ -535,8 +541,31 @@
                 <label for="passwordInput">รหัสผ่าน:</label>
                 <input type="password" id="passwordInput" placeholder="ป้อนรหัสผ่าน">
             </div>
-            <p id="loginErrorMsg" class="error-message">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</p>
             <button id="loginBtn" class="btn btn-primary mt-2"><i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ</button>
+        </div>
+    </div>
+    <div id="loginSuccessModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('loginSuccessModal')">×</span>
+            <h3 class="text-xl font-semibold mb-4">การเข้าสู่ระบบ</h3>
+            <p class="success-message">เข้าสู่ระบบเรียบร้อย</p>
+            <button onclick="closeModal('loginSuccessModal')" class="btn btn-primary mt-2"><i class="fas fa-check"></i> ตกลง</button>
+        </div>
+    </div>
+    <div id="loginErrorModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('loginErrorModal')">×</span>
+            <h3 class="text-xl font-semibold mb-4">การเข้าสู่ระบบ</h3>
+            <p class="error-message">ชื่อผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง</p>
+            <button onclick="openModal('loginModal')" class="btn btn-primary mt-2"><i class="fas fa-undo"></i> ลองอีกครั้ง</button>
+        </div>
+    </div>
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="completeLogout()">×</span>
+            <h3 class="text-xl font-semibold mb-4">ออกจากระบบ</h3>
+            <p class="success-message">ออกจากระบบเรียบร้อย</p>
+            <button onclick="completeLogout()" class="btn btn-primary mt-2"><i class="fas fa-check"></i> ตกลง</button>
         </div>
     </div>
     <div id="addStudentModal" class="modal">
@@ -579,7 +608,10 @@
         const usernameInput = document.getElementById('usernameInput');
         const passwordInput = document.getElementById('passwordInput');
         const loginBtn = document.getElementById('loginBtn');
-        const loginErrorMsg = document.getElementById('loginErrorMsg');
+        // Message Modal Elements
+        const loginSuccessModal = document.getElementById('loginSuccessModal');
+        const loginErrorModal = document.getElementById('loginErrorModal');
+        const logoutModal = document.getElementById('logoutModal');
         // Dashboard View Elements
         const dbTotalStudentCountEl = document.getElementById('dbTotalStudentCount');
         const dbTotalStudentPercentEl = document.getElementById('dbTotalStudentPercent');
@@ -679,37 +711,42 @@
                 localStorage.removeItem(LOGIN_SESSION_KEY);
                 isLoggedIn = false;
                 updateLoginLogoutNavText();
+                navLoginLogout.style.display = 'none'; // Hide login/logout nav item
                 updateUIVisibility();
                 showView('dashboardView');
                 renderAll();
-                alert('คุณได้ออกจากระบบเรียบร้อยแล้ว');
+                openModal('logoutModal');
             } else {
                 openModal('loginModal');
             }
         }
+        function completeLogout() {
+            closeModal('logoutModal');
+        }
         function handleLoginAttempt() {
             const username = usernameInput.value.trim();
             const password = passwordInput.value.trim();
+            closeModal('loginModal');
             if (username === 'mlpy' && password === '12345678') {
                 isLoggedIn = true;
                 localStorage.setItem(LOGIN_SESSION_KEY, 'loggedIn');
-                closeModal('loginModal');
                 usernameInput.value = '';
                 passwordInput.value = '';
-                loginErrorMsg.style.display = 'none';
-                updateLoginLogoutNavText();
-                updateUIVisibility();
-                renderAll();
-                alert('เข้าสู่ระบบสำเร็จ');
+                openModal('loginSuccessModal');
+                setTimeout(() => {
+                    closeModal('loginSuccessModal');
+                    updateLoginLogoutNavText();
+                    updateUIVisibility();
+                    renderAll();
+                }, 1500);
             } else {
-                loginErrorMsg.style.display = 'block';
-                usernameInput.focus();
+                openModal('loginErrorModal');
             }
         }
         function updateUIVisibility() {
             navAttendance.style.display = isLoggedIn ? 'block' : 'none';
             navManageStudents.style.display = isLoggedIn ? 'block' : 'none';
-            navLoginLogout.style.display = 'block';
+            navLoginLogout.style.display = isLoggedIn ? 'block' : 'block'; // Always visible unless hidden by logout
             if (currentView === 'attendanceView' && isLoggedIn) {
                 datePickerContainer.style.display = 'flex';
             } else {
@@ -1056,7 +1093,6 @@
             } else if (modalId === 'loginModal') {
                 usernameInput.value = '';
                 passwordInput.value = '';
-                loginErrorMsg.style.display = 'none';
                 usernameInput.focus();
             }
         }
