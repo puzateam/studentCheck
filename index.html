@@ -54,7 +54,7 @@
         .btn {
             padding: 0.6rem 1.2rem;
             border-radius: 8px;
-            font-weight: 500;
+            font　　　-weight: 500;
             transition: all 0.3s ease;
             cursor: pointer;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -235,7 +235,6 @@
             color: #374151;
         }
         .modal-content input[type="text"],
-        .modal-content input[type="password"],
         .modal-content input[type="date"] {
             width: 100%;
             padding: 0.5rem;
@@ -245,7 +244,6 @@
             box-sizing: border-box;
         }
         .modal-content input[type="text"]:focus,
-        .modal-content input[type="password"]:focus,
         .modal-content input[type="date"]:focus {
             box-shadow: 0 0 0 2px #3b82f6;
             border-color: #3b82f6;
@@ -328,18 +326,6 @@
             font-size: 0.875rem;
             margin-top: auto;
         }
-        .error-message {
-            color: #dc2626;
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-            display: block;
-        }
-        .success-message {
-            color: #16a34a;
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-            display: block;
-        }
         @media (max-width: 768px) {
             .container {
                 margin: 1rem;
@@ -417,9 +403,8 @@
             </div>
             <nav class="flex flex-wrap justify-center border-b border-gray-300 mt-6 mb-6">
                 <div id="navDashboard" class="nav-item active" onclick="showView('dashboardView')"><i class="fas fa-tachometer-alt"></i> แดชบอร์ด</div>
-                <div id="navAttendance" class="nav-item" style="display: none;" onclick="showView('attendanceView')"><i class="fas fa-user-check"></i> เช็คชื่อ</div>
-                <div id="navManageStudents" class="nav-item" style="display: none;" onclick="showView('manageStudentsView')"><i class="fas fa-users-cog"></i> จัดการนักเรียน</div>
-                <div id="navLoginLogout" class="nav-item" onclick="toggleLoginLogout()"><i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ</div>
+                <div id="navAttendance" class="nav-item" onclick="showView('attendanceView')"><i class="fas fa-user-check"></i> เช็คชื่อ</div>
+                <div id="navManageStudents" class="nav-item" onclick="showView('manageStudentsView')"><i class="fas fa-users-cog"></i> จัดการนักเรียน</div>
             </nav>
             <div id="datePickerContainer" class="mb-6 p-4 bg-gray-50 rounded-lg shadow flex">
                 <div>
@@ -529,45 +514,6 @@
     <footer class="app-footer">
         <p>พัฒนาโดย นายสุชาติ เวียงชัย © 2025 ระบบเช็คการมาเรียนออนไลน์</p>
     </footer>
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('loginModal')">×</span>
-            <h3 class="text-xl font-semibold mb-4">เข้าสู่ระบบ</h3>
-            <div>
-                <label for="usernameInput">ชื่อผู้ใช้:</label>
-                <input type="text" id="usernameInput" placeholder="ป้อนชื่อผู้ใช้">
-            </div>
-            <div>
-                <label for="passwordInput">รหัสผ่าน:</label>
-                <input type="password" id="passwordInput" placeholder="ป้อนรหัสผ่าน">
-            </div>
-            <button id="loginBtn" class="btn btn-primary mt-2"><i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ</button>
-        </div>
-    </div>
-    <div id="loginSuccessModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('loginSuccessModal')">×</span>
-            <h3 class="text-xl font-semibold mb-4">การเข้าสู่ระบบ</h3>
-            <p class="success-message">เข้าสู่ระบบเรียบร้อย</p>
-            <button onclick="closeModal('loginSuccessModal')" class="btn btn-primary mt-2"><i class="fas fa-check"></i> ตกลง</button>
-        </div>
-    </div>
-    <div id="loginErrorModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('loginErrorModal')">×</span>
-            <h3 class="text-xl font-semibold mb-4">การเข้าสู่ระบบ</h3>
-            <p class="error-message">ชื่อผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง</p>
-            <button onclick="openModal('loginModal')" class="btn btn-primary mt-2"><i class="fas fa-undo"></i> ลองอีกครั้ง</button>
-        </div>
-    </div>
-    <div id="logoutModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="completeLogout()">×</span>
-            <h3 class="text-xl font-semibold mb-4">ออกจากระบบ</h3>
-            <p class="success-message">ออกจากระบบเรียบร้อย</p>
-            <button onclick="completeLogout()" class="btn btn-primary mt-2"><i class="fas fa-check"></i> ตกลง</button>
-        </div>
-    </div>
     <div id="addStudentModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('addStudentModal')">×</span>
@@ -598,20 +544,10 @@
         const navDashboard = document.getElementById('navDashboard');
         const navAttendance = document.getElementById('navAttendance');
         const navManageStudents = document.getElementById('navManageStudents');
-        const navLoginLogout = document.getElementById('navLoginLogout');
         const datePickerContainer = document.getElementById('datePickerContainer');
         const selectedDateInput = document.getElementById('selectedDateInput');
         const dashboardDateDisplayContext = document.getElementById('dashboardDateDisplayContext');
         const attendanceDateDisplay = document.getElementById('attendanceDateDisplay');
-        // Login Modal Elements
-        const loginModal = document.getElementById('loginModal');
-        const usernameInput = document.getElementById('usernameInput');
-        const passwordInput = document.getElementById('passwordInput');
-        const loginBtn = document.getElementById('loginBtn');
-        // Message Modal Elements
-        const loginSuccessModal = document.getElementById('loginSuccessModal');
-        const loginErrorModal = document.getElementById('loginErrorModal');
-        const logoutModal = document.getElementById('logoutModal');
         // Dashboard View Elements
         const dbTotalStudentCountEl = document.getElementById('dbTotalStudentCount');
         const dbTotalStudentPercentEl = document.getElementById('dbTotalStudentPercent');
@@ -662,11 +598,9 @@
         let selectedDate = '';
         let overallPieChartInstance = null;
         let classBarChartInstance = null;
-        let isLoggedIn = false;
         // Data Persistence (LocalStorage)
         const STUDENTS_STORAGE_KEY = 'attendanceAppStudentsSPAv11';
         const RECORDS_STORAGE_KEY = 'attendanceAppRecordsSPAv11';
-        const LOGIN_SESSION_KEY = 'attendanceAppLoginSession';
         // Initialization
         document.addEventListener('DOMContentLoaded', () => {
             const today = new Date();
@@ -674,15 +608,8 @@
             selectedDateInput.value = selectedDate;
             updateDateDisplays(selectedDate);
             loadInitialData();
-            checkLoginStatus();
             selectedDateInput.addEventListener('change', handleDateChange);
-            openAddStudentModalBtn.addEventListener('click', () => {
-                if (!isLoggedIn) {
-                    openModal('loginModal');
-                    return;
-                }
-                openModal('addStudentModal');
-            });
+            openAddStudentModalBtn.addEventListener('click', () => openModal('addStudentModal'));
             addStudentFromModalBtn.addEventListener('click', handleAddStudentFromModal);
             studentFileInput.addEventListener('change', handleFileSelect);
             loadStudentsFromFileBtn.addEventListener('click', handleLoadStudentsFromFile);
@@ -691,63 +618,10 @@
             manageStudentsClassFilterSelect.addEventListener('change', handleManageStudentsClassFilterChange);
             exportStudentsBtn.addEventListener('click', handleExportStudents);
             saveClassAttendanceBtn.addEventListener('click', handleSaveClassAttendance);
-            loginBtn.addEventListener('click', handleLoginAttempt);
-            navLoginLogout.addEventListener('click', toggleLoginLogout);
             showView('dashboardView');
         });
-        function checkLoginStatus() {
-            const loginSession = localStorage.getItem(LOGIN_SESSION_KEY);
-            isLoggedIn = !!loginSession;
-            updateLoginLogoutNavText();
-            updateUIVisibility();
-        }
-        function updateLoginLogoutNavText() {
-            navLoginLogout.innerHTML = isLoggedIn
-                ? '<i class="fas fa-sign-out-alt"></i> ออกจากระบบ'
-                : '<i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ';
-        }
-        function toggleLoginLogout() {
-            if (isLoggedIn) {
-                localStorage.removeItem(LOGIN_SESSION_KEY);
-                isLoggedIn = false;
-                updateLoginLogoutNavText();
-                navLoginLogout.style.display = 'none'; // Hide login/logout nav item
-                updateUIVisibility();
-                showView('dashboardView');
-                renderAll();
-                openModal('logoutModal');
-            } else {
-                openModal('loginModal');
-            }
-        }
-        function completeLogout() {
-            closeModal('logoutModal');
-        }
-        function handleLoginAttempt() {
-            const username = usernameInput.value.trim();
-            const password = passwordInput.value.trim();
-            closeModal('loginModal');
-            if (username === 'mlpy' && password === '12345678') {
-                isLoggedIn = true;
-                localStorage.setItem(LOGIN_SESSION_KEY, 'loggedIn');
-                usernameInput.value = '';
-                passwordInput.value = '';
-                openModal('loginSuccessModal');
-                setTimeout(() => {
-                    closeModal('loginSuccessModal');
-                    updateLoginLogoutNavText();
-                    updateUIVisibility();
-                    renderAll();
-                }, 1500);
-            } else {
-                openModal('loginErrorModal');
-            }
-        }
         function updateUIVisibility() {
-            navAttendance.style.display = isLoggedIn ? 'block' : 'none';
-            navManageStudents.style.display = isLoggedIn ? 'block' : 'none';
-            navLoginLogout.style.display = isLoggedIn ? 'block' : 'block'; // Always visible unless hidden by logout
-            if (currentView === 'attendanceView' && isLoggedIn) {
+            if (currentView === 'attendanceView') {
                 datePickerContainer.style.display = 'flex';
             } else {
                 datePickerContainer.style.display = 'none';
@@ -776,10 +650,6 @@
             if (storedRecords) attendanceRecords = JSON.parse(storedRecords);
         }
         function showView(viewId) {
-            if (!isLoggedIn && viewId !== 'dashboardView') {
-                openModal('loginModal');
-                return;
-            }
             currentView = viewId;
             views.forEach(view => view.classList.toggle('active', view.id === currentView));
             navItems.forEach(nav => {
@@ -812,7 +682,7 @@
                 attendanceClassFilterSelect.value = 'all';
             }
             selectedClassFilterAttendance = attendanceClassFilterSelect.value;
-            saveClassAttendanceBtn.disabled = (selectedClassFilterAttendance === 'all' || !isLoggedIn);
+            saveClassAttendanceBtn.disabled = (selectedClassFilterAttendance === 'all');
             const currentManageFilterValue = manageStudentsClassFilterSelect.value;
             manageStudentsClassFilterSelect.innerHTML = '<option value="all">ทุกชั้นเรียน</option>';
             uniqueClasses.forEach(cls => {
@@ -1067,13 +937,7 @@
             button.className = `btn status-btn ${status}`;
             if (isSelected) button.classList.add('selected');
             button.dataset.status = status;
-            button.addEventListener('click', () => {
-                if (!isLoggedIn) {
-                    openModal('loginModal');
-                    return;
-                }
-                handleSetStudentStatusVisual(studentInternalId, status);
-            });
+            button.addEventListener('click', () => handleSetStudentStatusVisual(studentInternalId, status));
             return button;
         }
         function openModal(modalId) {
@@ -1090,10 +954,6 @@
                 newStudentClassModalInput.value = '';
                 newStudentRoomModalInput.value = '';
                 newStudentNameModalInput.focus();
-            } else if (modalId === 'loginModal') {
-                usernameInput.value = '';
-                passwordInput.value = '';
-                usernameInput.focus();
             }
         }
         function closeModal(modalId) {
@@ -1106,19 +966,11 @@
             if (event.target.classList.contains('modal')) closeModal(event.target.id);
         };
         function handleAttendanceClassFilterChange() {
-            if (!isLoggedIn) {
-                openModal('loginModal');
-                return;
-            }
             selectedClassFilterAttendance = attendanceClassFilterSelect.value;
-            saveClassAttendanceBtn.disabled = (selectedClassFilterAttendance === 'all' || !isLoggedIn);
+            saveClassAttendanceBtn.disabled = (selectedClassFilterAttendance === 'all');
             renderStudentListAttendance();
         }
         function handleManageStudentsClassFilterChange() {
-            if (!isLoggedIn) {
-                openModal('loginModal');
-                return;
-            }
             selectedClassFilterManage = manageStudentsClassFilterSelect.value;
             renderStudentListManage();
         }
@@ -1135,10 +987,6 @@
             }
         }
         function handleSaveClassAttendance() {
-            if (!isLoggedIn) {
-                openModal('loginModal');
-                return;
-            }
             if (!selectedDate) {
                 alert("กรุณาเลือกวันที่ก่อน");
                 return;
@@ -1179,10 +1027,6 @@
             showView('dashboardView');
         }
         function handleExportStudents() {
-            if (!isLoggedIn) {
-                openModal('loginModal');
-                return;
-            }
             const filteredStudentsForExport = students.filter(student =>
                 selectedClassFilterManage === 'all' || student.studentClass === selectedClassFilterManage
             );
@@ -1231,10 +1075,6 @@
             XLSX.writeFile(workbook, `รายงานการมาเรียน_ชั้น_${fileNameSuffix}_ถึง_${exportDate}.xlsx`);
         }
         function handleAddStudentFromModal() {
-            if (!isLoggedIn) {
-                openModal('loginModal');
-                return;
-            }
             const studentId = newStudentIdModalInput.value.trim();
             const name = newStudentNameModalInput.value.trim();
             const studentClass = newStudentClassModalInput.value.trim();
@@ -1265,10 +1105,6 @@
             fileNameDisplay.textContent = file ? file.name : 'ยังไม่ได้เลือกไฟล์';
         }
         function handleLoadStudentsFromFile() {
-            if (!isLoggedIn) {
-                openModal('loginModal');
-                return;
-            }
             const file = studentFileInput.files[0];
             if (!file) {
                 alert('กรุณาเลือกไฟล์ XLSX หรือ CSV');
@@ -1324,10 +1160,6 @@
             reader.readAsArrayBuffer(file);
         }
         function openEditModal(studentInternalId) {
-            if (!isLoggedIn) {
-                openModal('loginModal');
-                return;
-            }
             const student = students.find(s => s.internalId === studentInternalId);
             if (student) {
                 editStudentInternalIdInput.value = student.internalId;
@@ -1340,10 +1172,6 @@
             }
         }
         function handleSaveStudentChanges() {
-            if (!isLoggedIn) {
-                openModal('loginModal');
-                return;
-            }
             const studentInternalId = editStudentInternalIdInput.value;
             const newActualId = editStudentActualIdInput.value.trim();
             const newName = editStudentNameInput.value.trim();
@@ -1371,10 +1199,6 @@
             }
         }
         function handleDeleteStudent(studentInternalId) {
-            if (!isLoggedIn) {
-                openModal('loginModal');
-                return;
-            }
             if (confirm('คุณแน่ใจหรือไม่ว่าต้องการลบนักเรียนคนนี้?')) {
                 students = students.filter(s => s.internalId !== studentInternalId);
                 Object.keys(attendanceRecords).forEach(date => {
