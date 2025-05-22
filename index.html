@@ -213,25 +213,12 @@
                  justify-content: center;
             }
         }
-         @media print {
-            body * { visibility: hidden; }
-            .print-area, .print-area * { visibility: visible; }
-            .print-area { position: absolute; left: 0; top: 0; width: 100%; }
-            table { font-size: 10pt; }
-            th, td { padding: 4px !important; }
-            .no-print { display: none !important; }
-            .status-checked { color: #16a34a !important; }
-            .status-unchecked { color: #dc2626 !important; }
-             /* Ensure colors are printed if browser supports it */
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
     </style>
 </head>
 <body>
     <div class="container-wrapper">
         <div class="container">
-            <div class="page-header-background no-print">
+            <div class="page-header-background">
                 <div class="logo-container">
                     <img src='https://i.postimg.cc/d3PbrGqC/logo-School.png' alt='โลโก้โรงเรียนชุมชนบ้านแม่หละป่าป๋วย'/>
                 </div>
@@ -240,14 +227,14 @@
                 </header>
             </div>
 
-            <nav class="flex flex-wrap justify-center border-b border-gray-300 mt-6 mb-6 no-print">
+            <nav class="flex flex-wrap justify-center border-b border-gray-300 mt-6 mb-6">
                 <div id="navDashboard" class="nav-item active" onclick="showView('dashboardView')"><i class="fas fa-tachometer-alt"></i> แดชบอร์ด</div>
                 <div id="navAttendance" class="nav-item" onclick="showView('attendanceView')" style="display: none;"><i class="fas fa-user-check"></i> เช็คชื่อ</div>
                 <div id="navManageStudents" class="nav-item" onclick="showView('manageStudentsView')" style="display: none;"><i class="fas fa-users-cog"></i> จัดการนักเรียน</div>
                 <div id="navLoginLogout" class="nav-item" onclick="toggleLoginLogout()"><i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ</div>
             </nav>
 
-            <div id="datePickerContainer" class="mb-6 p-4 bg-gray-50 rounded-lg shadow flex no-print">
+            <div id="datePickerContainer" class="mb-6 p-4 bg-gray-50 rounded-lg shadow flex">
                 <div>
                     <label for="selectedDateInput" class="block text-sm font-medium text-gray-700 mb-1">เลือกวันที่:</label>
                     <input type="date" id="selectedDateInput" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
@@ -261,10 +248,10 @@
             </div>
 
             <div id="dashboardView" class="view active">
-                <h2 class="text-2xl font-semibold mb-6 text-gray-700 no-print">สรุปผลการเช็คชื่อ</h2>
-                 <p class="text-center text-gray-600 mb-4 no-print">ข้อมูลสำหรับวันที่: <span id="dashboardDateDisplayContext"></span></p>
+                <h2 class="text-2xl font-semibold mb-6 text-gray-700">สรุปผลการเช็คชื่อ</h2>
+                 <p class="text-center text-gray-600 mb-4">ข้อมูลสำหรับวันที่: <span id="dashboardDateDisplayContext"></span></p>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 no-print">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                     <div class="dashboard-card card-total-students">
                         <p>นักเรียนทั้งหมด</p>
                         <p class="stat-value"><span id="dbTotalStudentCount">0</span> (<span id="dbTotalStudentPercent">100.0</span>%)</p>
@@ -283,7 +270,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 no-print">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     <div>
                         <h3 class="text-xl font-medium text-center mb-2">สถิติรวม (สำหรับวันที่เลือก)</h3>
                         <div class="chart-container">
@@ -298,38 +285,28 @@
                     </div>
                 </div>
 
-                <div id="printableDashboardTableArea"> <!-- เพิ่ม Wrapper สำหรับส่วนที่จะพิมพ์ -->
-                    <div class="table-container">
-                        <div class="text-center mb-2"> <!-- Container for title for printing -->
-                            <h3 class="text-xl font-medium">ตารางสรุปข้อมูลรายชั้นเรียน</h3>
-                            <p class="text-md text-gray-600">ข้อมูลสำหรับวันที่: <span id="dashboardTablePrintDateContext"></span></p>
-                        </div>
-                         <div class="text-center my-4 no-print">
-                            <button id="printDashboardTableBtn" class="btn btn-secondary"><i class="fas fa-print"></i> พิมพ์ตารางนี้</button>
-                        </div>
-                        <table id="classSummaryTable">
-                            <thead>
-                                <tr>
-                                    <th>ชั้นเรียน</th>
-                                    <th>จำนวนทั้งหมด</th>
-                                    <th>มา</th>
-                                    <th>ขาด</th>
-                                    <th>ลา</th>
-                                    <th>สถานะการเช็คชื่อ</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Populated by JavaScript -->
+                <div class="table-container">
+                    <h3 class="text-xl font-medium text-center mb-4">ตารางสรุปข้อมูลรายชั้นเรียน (สำหรับวันที่เลือก)</h3>
+                    <table id="classSummaryTable">
+                        <thead>
+                            <tr>
+                                <th>ชั้นเรียน</th>
+                                <th>จำนวนทั้งหมด</th>
+                                <th>มา</th>
+                                <th>ขาด</th>
+                                <th>ลา</th>
+                                <th>สถานะการเช็คชื่อ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             </tbody>
-                            <tfoot>
-                                <!-- Populated by JavaScript -->
+                        <tfoot>
                             </tfoot>
-                        </table>
-                    </div>
+                    </table>
                 </div>
             </div>
 
-            <div id="manageStudentsView" class="view no-print">
+            <div id="manageStudentsView" class="view">
                 <h2 class="text-2xl font-semibold mb-4 text-gray-700">จัดการรายชื่อนักเรียน</h2>
 
                 <div class="mb-6 p-4 bg-gray-50 rounded-lg shadow flex flex-wrap gap-4 items-end manage-students-controls">
@@ -358,7 +335,7 @@
                 </div>
             </div>
 
-            <div id="attendanceView" class="view no-print">
+            <div id="attendanceView" class="view">
                 <h2 class="text-2xl font-semibold mb-4 text-gray-700">เช็คชื่อเข้าเรียน (สำหรับวันที่ <span id="attendanceDateDisplay"></span>)</h2>
                 <div id="studentListAttendance" class="bg-white rounded-lg shadow">
                     <p class="text-gray-500 text-center py-4">กรุณาเลือกชั้นเรียนจากด้านบนเพื่อแสดงรายชื่อนักเรียน</p>
@@ -369,36 +346,83 @@
             </div>
         </div>
     </div>
-    <footer class="app-footer no-print">
+    <footer class="app-footer">
         <p>พัฒนาโดย นายสุชาติ เวียงชัย © 2025 ระบบเช็คการมาเรียนออนไลน์</p>
     </footer>
 
-    <!-- Modals (no-print by default with current CSS logic for printing) -->
-    <div id="loginModal" class="modal no-print">
-        <!-- ... modal content ... -->
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('loginModal')">×</span>
+            <h3 class="text-xl font-semibold mb-4">เข้าสู่ระบบ</h3>
+            <div class="mb-4">
+                <label for="usernameInput">ชื่อผู้ใช้:</label>
+                <input type="text" id="usernameInput" placeholder="ชื่อผู้ใช้">
+            </div>
+            <div class="mb-6">
+                <label for="passwordInput">รหัสผ่าน:</label>
+                <input type="password" id="passwordInput" placeholder="รหัสผ่าน">
+            </div>
+            <button id="loginBtn" class="btn btn-primary w-full"><i class="fas fa-sign-in-alt"></i> เข้าสู่ระบบ</button>
+        </div>
     </div>
-    <div id="loginSuccessModal" class="modal no-print">
-        <!-- ... modal content ... -->
+
+    <!-- Login Success Modal -->
+    <div id="loginSuccessModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('loginSuccessModal')">×</span>
+            <h3 class="text-xl font-semibold mb-4">การเข้าสู่ระบบ</h3>
+            <p class="success-message">เข้าสู่ระบบเรียบร้อย</p>
+            <button onclick="closeModal('loginSuccessModal')" class="btn btn-primary mt-4"><i class="fas fa-check"></i> ตกลง</button>
+        </div>
     </div>
-    <div id="loginErrorModal" class="modal no-print">
-        <!-- ... modal content ... -->
+
+    <!-- Login Error Modal -->
+    <div id="loginErrorModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('loginErrorModal')">×</span>
+            <h3 class="text-xl font-semibold mb-4">การเข้าสู่ระบบ</h3>
+            <p class="error-message">ชื่อผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง</p>
+            <button onclick="openModal('loginModal'); closeModal('loginErrorModal');" class="btn btn-primary mt-4"><i class="fas fa-undo"></i> ลองอีกครั้ง</button>
+        </div>
     </div>
-    <div id="logoutModal" class="modal no-print">
-        <!-- ... modal content ... -->
+
+    <!-- Logout Modal -->
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="completeLogout()">×</span>
+            <h3 class="text-xl font-semibold mb-4">ออกจากระบบ</h3>
+            <p class="success-message">ออกจากระบบเรียบร้อย</p>
+            <button onclick="completeLogout()" class="btn btn-primary mt-4"><i class="fas fa-check"></i> ตกลง</button>
+        </div>
     </div>
-    <div id="addStudentModal" class="modal no-print">
-        <!-- ... modal content ... -->
+
+    <div id="addStudentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('addStudentModal')">×</span>
+            <h3 class="text-xl font-semibold mb-4">เพิ่มนักเรียนใหม่</h3>
+            <div><label for="newStudentIdModalInput">รหัสนักเรียน:</label><input type="text" id="newStudentIdModalInput" placeholder="รหัสนักเรียน (ถ้ามี)"></div>
+            <div><label for="newStudentNameModalInput">ชื่อ-นามสกุล:</label><input type="text" id="newStudentNameModalInput" placeholder="ชื่อ-นามสกุล นักเรียน"></div>
+            <div><label for="newStudentClassModalInput">ชั้น:</label><input type="text" id="newStudentClassModalInput" placeholder="เช่น ม.1, ป.6"></div>
+            <div><label for="newStudentRoomModalInput">ห้อง:</label><input type="text" id="newStudentRoomModalInput" placeholder="เช่น 1, A"></div>
+            <button id="addStudentFromModalBtn" class="btn btn-primary mt-2"><i class="fas fa-plus"></i> เพิ่มนักเรียน</button>
+        </div>
     </div>
-    <div id="editStudentModal" class="modal no-print">
-        <!-- ... modal content ... -->
+
+    <div id="editStudentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('editStudentModal')">×</span>
+            <h3 class="text-xl font-semibold mb-4">แก้ไขข้อมูลนักเรียน</h3>
+            <input type="hidden" id="editStudentInternalId">
+            <div><label for="editStudentActualIdInput">รหัสนักเรียน:</label><input type="text" id="editStudentActualIdInput"></div>
+            <div><label for="editStudentNameInput">ชื่อ-นามสกุล:</label><input type="text" id="editStudentNameInput"></div>
+            <div><label for="editStudentClassInput">ชั้น:</label><input type="text" id="editStudentClassInput"></div>
+            <div><label for="editStudentRoomInput">ห้อง:</label><input type="text" id="editStudentRoomInput"></div>
+            <button id="saveStudentChangesBtn" class="btn btn-primary mt-2"><i class="fas fa-save"></i> บันทึกการเปลี่ยนแปลง</button>
+        </div>
     </div>
 
     <script>
-        // DOM Elements (keep existing ones)
-        const dashboardTablePrintDateContext = document.getElementById('dashboardTablePrintDateContext');
-        const printDashboardTableBtn = document.getElementById('printDashboardTableBtn');
-
-        // ... (rest of your existing DOM element declarations)
         // DOM Elements
         const views = document.querySelectorAll('.view');
         const navItems = document.querySelectorAll('.nav-item');
@@ -462,11 +486,9 @@
         const editStudentRoomInput = document.getElementById('editStudentRoomInput');
         const saveStudentChangesBtn = document.getElementById('saveStudentChangesBtn');
 
-
         // --- Configuration ---
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxaKv8w64hPxgECjVyig-hprJ1ICaYnuC7UJ2bTk0AFhcWwoo0n3AxUYWKYS82o5Kr2/exec'; // <-- PASTE YOUR DEPLOYED APPS SCRIPT URL HERE
 
-        // Application State (keep existing ones)
         // Application State
         let students = [];
         let attendanceRecords = {};
@@ -480,49 +502,6 @@
         let isLoading = false; // For loading state
 
         const LOGIN_SESSION_KEY = 'attendanceAppLoggedInSPAv11_final_gs';
-
-
-        // ... (rest of your existing JavaScript code up to DOMContentLoaded)
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            const today = new Date();
-            selectedDate = today.toISOString().split('T')[0];
-            selectedDateInput.value = selectedDate;
-            updateDateDisplays(selectedDate);
-
-            checkLoginStatus();
-
-            selectedDateInput.addEventListener('change', handleDateChange);
-            loginBtn.addEventListener('click', handleLoginAttempt);
-
-            openAddStudentModalBtn.addEventListener('click', () => {
-                if (!isLoggedIn) { openModal('loginModal'); return; }
-                openModal('addStudentModal');
-            });
-            addStudentFromModalBtn.addEventListener('click', handleAddStudentFromModal);
-            studentFileInput.addEventListener('change', handleFileSelect);
-            loadStudentsFromFileBtn.addEventListener('click', handleLoadStudentsFromFile);
-            saveStudentChangesBtn.addEventListener('click', handleSaveStudentChanges);
-
-            attendanceClassFilterSelect.addEventListener('change', handleAttendanceClassFilterChange);
-            manageStudentsClassFilterSelect.addEventListener('change', handleManageStudentsClassFilterChange);
-            exportStudentsBtn.addEventListener('click', handleExportStudents);
-
-            saveClassAttendanceBtn.addEventListener('click', handleSaveClassAttendance);
-            printDashboardTableBtn.addEventListener('click', handlePrintDashboardTable); // Added listener
-
-            await loadInitialDataFromServer();
-            showView('dashboardView');
-        });
-
-        function updateDateDisplays(dateString) { // Ensure this function also updates the new span
-            const dateObj = new Date(dateString);
-            const options = { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Bangkok' };
-            const formattedDate = dateObj.toLocaleDateString('th-TH', options);
-            if(dashboardDateDisplayContext) dashboardDateDisplayContext.textContent = formattedDate;
-            if(attendanceDateDisplay) attendanceDateDisplay.textContent = formattedDate;
-            if(dashboardTablePrintDateContext) dashboardTablePrintDateContext.textContent = formattedDate; // Update new span
-        }
 
         // --- Helper for GAS Communication ---
         async function callAppsScript(action, payload = null, method = 'GET') {
@@ -597,6 +576,37 @@
             }
         }
 
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', async () => {
+            const today = new Date();
+            selectedDate = today.toISOString().split('T')[0];
+            selectedDateInput.value = selectedDate;
+            updateDateDisplays(selectedDate);
+
+            checkLoginStatus();
+
+            selectedDateInput.addEventListener('change', handleDateChange);
+            loginBtn.addEventListener('click', handleLoginAttempt);
+
+            openAddStudentModalBtn.addEventListener('click', () => {
+                if (!isLoggedIn) { openModal('loginModal'); return; }
+                openModal('addStudentModal');
+            });
+            addStudentFromModalBtn.addEventListener('click', handleAddStudentFromModal);
+            studentFileInput.addEventListener('change', handleFileSelect);
+            loadStudentsFromFileBtn.addEventListener('click', handleLoadStudentsFromFile);
+            saveStudentChangesBtn.addEventListener('click', handleSaveStudentChanges);
+
+            attendanceClassFilterSelect.addEventListener('change', handleAttendanceClassFilterChange);
+            manageStudentsClassFilterSelect.addEventListener('change', handleManageStudentsClassFilterChange);
+            exportStudentsBtn.addEventListener('click', handleExportStudents);
+
+            saveClassAttendanceBtn.addEventListener('click', handleSaveClassAttendance);
+
+            await loadInitialDataFromServer();
+            showView('dashboardView');
+        });
 
         // --- Login System Functions ---
         function checkLoginStatus() {
@@ -677,6 +687,13 @@
             renderAll();
         }
 
+        function updateDateDisplays(dateString) {
+            const dateObj = new Date(dateString);
+            const options = { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Bangkok' };
+            const formattedDate = dateObj.toLocaleDateString('th-TH', options);
+            if (dashboardDateDisplayContext) dashboardDateDisplayContext.textContent = formattedDate;
+            if (attendanceDateDisplay) attendanceDateDisplay.textContent = formattedDate;
+        }
 
         // --- Data Management with Apps Script ---
         async function loadInitialDataFromServer() {
@@ -688,7 +705,7 @@
                 console.log("Data loaded: ", students.length, "students,", Object.keys(attendanceRecords).length, "attendance date entries");
                 renderAll();
             } catch (error) {
-                // alert('ไม่สามารถโหลดข้อมูลเริ่มต้นจากเซิร์ฟเวอร์ได้ กรุณาลองรีเฟรชหน้า'); // Already alerted by callAppsScript
+                alert('ไม่สามารถโหลดข้อมูลเริ่มต้นจากเซิร์ฟเวอร์ได้ กรุณาลองรีเฟรชหน้า');
             }
         }
 
@@ -736,8 +753,7 @@
                 attendanceClassFilterSelect.value = 'all';
             }
             selectedClassFilterAttendance = attendanceClassFilterSelect.value;
-            if (saveClassAttendanceBtn) saveClassAttendanceBtn.disabled = (selectedClassFilterAttendance === 'all' || !isLoggedIn || isLoading);
-
+            saveClassAttendanceBtn.disabled = (selectedClassFilterAttendance === 'all' || !isLoggedIn || isLoading);
 
             const currentManageFilterValue = manageStudentsClassFilterSelect.value;
             manageStudentsClassFilterSelect.innerHTML = '<option value="all">ทุกชั้นเรียน</option>';
@@ -1037,7 +1053,7 @@
         // --- Event Handlers ---
         function handleAttendanceClassFilterChange() {
             selectedClassFilterAttendance = attendanceClassFilterSelect.value;
-            if(saveClassAttendanceBtn) saveClassAttendanceBtn.disabled = (selectedClassFilterAttendance === 'all' || !isLoggedIn || isLoading);
+            saveClassAttendanceBtn.disabled = (selectedClassFilterAttendance === 'all' || !isLoggedIn || isLoading);
             renderStudentListAttendance();
         }
         function handleManageStudentsClassFilterChange() {
@@ -1113,7 +1129,7 @@
             }
         }
 
-        function handleExportStudents() { // Keep existing logic
+        function handleExportStudents() {
             if (!isLoggedIn) { openModal('loginModal'); return; }
             const filteredStudentsForExport = students.filter(student =>
                 selectedClassFilterManage === 'all' || student.studentClass === selectedClassFilterManage
@@ -1324,79 +1340,6 @@
                     // Error handled
                 }
             }
-        }
-
-        // --- Print Function ---
-        function handlePrintDashboardTable() {
-            if (!isLoggedIn) { openModal('loginModal'); return; }
-
-            const tableToPrint = document.getElementById('classSummaryTable');
-            if (!tableToPrint) {
-                alert('ไม่พบตารางสำหรับพิมพ์');
-                return;
-            }
-
-            const logoImgSrc = document.querySelector('.logo-container img')?.src;
-            const mainPageTitle = document.querySelector('.main-title')?.textContent;
-            const tableContextTitle = "ตารางสรุปข้อมูลรายชั้นเรียน"; // Title is fixed for print
-            const dateForTable = dashboardTablePrintDateContext.textContent; // Use the dedicated span
-
-            let printWindow = window.open('', '_blank', 'height=800,width=1000,scrollbars=yes,status=yes');
-            printWindow.document.write('<html><head><title>พิมพ์ตารางสรุป - ' + (mainPageTitle || "ระบบเช็คการมาเรียน") + '</title>');
-            // Tailwind is too heavy for just a table print, use minimal custom styles
-            printWindow.document.write('<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">');
-            printWindow.document.write('<style>');
-            printWindow.document.write(`
-                body { font-family: 'Prompt', sans-serif; margin: 20px; padding: 15px; }
-                .print-header { text-align: center; margin-bottom: 20px; }
-                .print-header img { max-width: 80px; display: block; margin: 0 auto 10px auto; }
-                .print-header h1 { font-size: 1.4rem; font-weight: bold; margin-bottom: 5px; }
-                .print-header h2 { font-size: 1.2rem; font-weight: normal; margin-bottom: 5px; }
-                .print-header p { font-size: 1rem; margin-bottom: 15px; }
-                table { width: 100%; border-collapse: collapse; margin-top: 10px; page-break-inside: auto; }
-                tr { page-break-inside: avoid; page-break-after: auto; }
-                thead { display: table-header-group; }
-                tfoot { display: table-footer-group; }
-                th, td { border: 1px solid #888; padding: 6px; text-align: left; font-size: 0.9rem; }
-                th { background-color: #e9ecef; font-weight: 600; } /* Light gray for header */
-                td.status-checked { color: #16a34a !important; font-weight: normal !important; } /* Ensure color prints */
-                td.status-unchecked { color: #dc2626 !important; font-weight: normal !important; } /* Ensure color prints */
-                @media print {
-                    body { margin: 0.5in; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-                    .print-header h1 { font-size: 16pt; }
-                    .print-header h2 { font-size: 14pt; }
-                    .print-header p { font-size: 12pt; }
-                    th, td { font-size: 9pt; padding: 4px; }
-                }
-            `);
-            printWindow.document.write('</style></head><body>');
-
-            printWindow.document.write('<div class="print-header">');
-            if (logoImgSrc) {
-                printWindow.document.write('<img src="' + logoImgSrc + '" alt="School Logo" />');
-            }
-            if (mainPageTitle) {
-                printWindow.document.write('<h1>' + mainPageTitle + '</h1>');
-            }
-            printWindow.document.write('<h2>' + tableContextTitle + '</h2>');
-            printWindow.document.write('<p>ข้อมูลสำหรับวันที่: ' + dateForTable + '</p>');
-            printWindow.document.write('</div>');
-
-            // Clone the table to avoid modifying the original, then modify clone for print
-            const clonedTable = tableToPrint.cloneNode(true);
-            // Ensure Tailwind classes that might affect visibility or color in print are handled
-            // For example, if some td/th have text color classes that are too light for print on white bg.
-            // The specific CSS for .status-checked and .status-unchecked should override.
-
-            printWindow.document.write(clonedTable.outerHTML);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-
-            setTimeout(() => {
-                printWindow.focus();
-                printWindow.print();
-                // printWindow.close(); // User can close it.
-            }, 700);
         }
 
     </script>
